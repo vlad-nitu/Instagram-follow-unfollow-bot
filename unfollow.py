@@ -21,6 +21,10 @@ def main():
     browser.get("https://www.instagram.com")
     time.sleep(5)
 
+    cookies_button = browser.find_element(By.XPATH, "//button[@class='_a9-- _a9_0']")
+    cookies_button.click()
+    sleep_for_period_of_time()
+
     username_input = browser.find_element(By.CSS_SELECTOR, "input[name='username']")
     password_input = browser.find_element(By.CSS_SELECTOR, "input[name='password']")
 
