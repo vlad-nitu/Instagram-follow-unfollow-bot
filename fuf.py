@@ -18,14 +18,14 @@ def main():
     browser.get("https://www.instagram.com")
     time.sleep(5)
 
-    username_input = browser.find_element_by_css_selector("input[name='username']")
-    password_input = browser.find_element_by_css_selector("input[name='password']")
+    username_input = browser.find_element(By.CSS_SELECTOR, "input[name='username']")
+    password_input = browser.find_element(By.CSS_SELECTOR, "input[name='password']")
 
     username_input.send_keys(user)
     password_input.send_keys(pwd)
     sleep_for_period_of_time()
 
-    login_button = browser.find_element_by_xpath("//button[@type='submit']")
+    login_button = browser.find_element(By.XPATH, "//button[@type='submit']")
     login_button.click()
     sleep_for_period_of_time()
 
@@ -37,7 +37,7 @@ def main():
     browser.get(f"https://www.instagram.com/{page_ig}")
     sleep_for_period_of_time()
 
-    followers_link = browser.find_element_by_xpath("//ul/li[2]/a")
+    followers_link = browser.find_element(By.XPATH, "//ul/li[2]/a")
     followers_link.click()
     sleep_for_period_of_time()
 
