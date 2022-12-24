@@ -1,12 +1,33 @@
 from selenium import webdriver
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common import actions
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import random
 import time
 
 def sleep_for_period_of_time():
-    limit = random.randint(7,10)
+    limit = random.randint(2,5)
     time.sleep(limit)
+
+def scroll_through_all_followers(driver):
+    SCROLL_PAUSE_TIME = 3
+
+    # Get scroll height
+    last_height = driver.execute_script("return document.body.scrollHeight")
+
+    while True:
+        # Scroll down to bottom
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+        # Wait to load page
+        time.sleep(SCROLL_PAUSE_TIME)
+
+        # Calculate new scroll height and compare with last scroll height
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
 
 user = input("Enter your username: ")
 pwd = input("Enter your password: ")
@@ -45,21 +66,25 @@ def main():
     followers_link.click()
     sleep_for_period_of_time()
 
+
     num_follow = input("How many person you want to follow: ")
 
     while(True):
         try:
             i = 0
-            list_of_followers = browser.find_elements(By.XPATH, '//button/div/div[contains(text(), "Follow")]')
+            list_of_followers = browser.find_elements(By.XPATH, '//button/div/div[contains(text(), "Follow") or contains(text(), "Requested")]')
+            ActionChains(browser).move_to_element(list_of_followers[0]).perform()
+            scroll_through_all_followers(browser)
+            print("There are" + str(len(list_of_followers)) + "followers for this profile")
             for person in list_of_followers:
                 if person.text == "Follow":
                     person.click()
                     print("Followed!")
-                    i +=1
+                    i += 1
                     print(i)
                     sleep_for_period_of_time()
                 else:
-                    pass
+                    continue
                 if i >= int(num_follow):
                     break
 
