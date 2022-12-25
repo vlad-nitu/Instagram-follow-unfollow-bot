@@ -4,8 +4,8 @@ from selenium.webdriver.common.by import By
 import random
 import time
 
-def sleep_for_period_of_time():
-    limit = random.randint(3, 15)
+def sleep_for_period_of_time(a, b):
+    limit = random.randint(a, b)
     time.sleep(limit)
 
 
@@ -21,28 +21,28 @@ def main():
 
     cookies_button = browser.find_element(By.XPATH, "//button[@class='_a9-- _a9_0']")
     cookies_button.click()
-    sleep_for_period_of_time()
+    sleep_for_period_of_time(5, 10)
 
     username_input = browser.find_element(By.CSS_SELECTOR, "input[name='username']")
     password_input = browser.find_element(By.CSS_SELECTOR, "input[name='password']")
 
     username_input.send_keys(user)
     password_input.send_keys(pwd)
-    sleep_for_period_of_time()
+    sleep_for_period_of_time(2, 4)
 
     login_button = browser.find_element(By.XPATH, "//button[@type='submit']")
     login_button.click()
-    sleep_for_period_of_time()
+    sleep_for_period_of_time(2, 4)
 
 
     page_ig = input("Enter page username: ")
     browser.get(f"https://www.instagram.com/{page_ig}")
-    sleep_for_period_of_time()
+    sleep_for_period_of_time(5, 10)
 
     num_follow = input("How many person you want to follow: ")
 
     browser.find_element(By.PARTIAL_LINK_TEXT, "follower").click()
-    sleep_for_period_of_time()
+    sleep_for_period_of_time(2, 4)
 
     pop_up_window = browser.find_element(By.XPATH, "//div[@class='_aano']")
 
@@ -57,7 +57,7 @@ def main():
                     print("Followed!")
                     followed += 1
                     print(followed)
-                    sleep_for_period_of_time()
+                    sleep_for_period_of_time(40, 60)
                 else:
                     pass
 

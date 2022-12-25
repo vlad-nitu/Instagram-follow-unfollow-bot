@@ -6,7 +6,7 @@ import time
 
 
 def sleep_for_period_of_time():
-    limit = random.randint(7, 10)
+    limit = random.randint(40, 60)
     time.sleep(limit)
 
 
