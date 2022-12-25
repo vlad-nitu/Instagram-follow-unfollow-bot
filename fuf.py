@@ -5,7 +5,7 @@ import random
 import time
 
 def sleep_for_period_of_time():
-    limit = random.randint(2,5)
+    limit = random.randint(3, 15)
     time.sleep(limit)
 
 
