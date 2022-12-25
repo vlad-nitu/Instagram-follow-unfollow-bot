@@ -46,40 +46,37 @@ def main():
 
     pop_up_window = browser.find_element(By.XPATH, "//div[@class='_aano']")
 
-    # Scroll till Followers list is there;
-    scroll_count = int(input("How many times do you want me to scroll: "))
-    for cnt in range(scroll_count):
-        browser.execute_script(
-            'arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].offsetHeight;',
-            pop_up_window)
-        time.sleep(1)
+    followed = 0
 
-    while(True):
+    while True:
         try:
-            i = 0
             list_of_followers = browser.find_elements(By.XPATH, '//button/div/div[contains(text(), "Follow")]')
-            print("There are" + str(len(list_of_followers)) + "followers that we will target")
             for person in list_of_followers:
                 if person.text == "Follow":
                     person.click()
                     print("Followed!")
-                    i += 1
-                    print(i)
+                    followed += 1
+                    print(followed)
                     sleep_for_period_of_time()
                 else:
-                    continue
-                if i >= int(num_follow):
-                    break
+                    pass
 
-            browser.execute_script("arguments[0].scrollIntoView(true);", list_of_followers[i])
-
-            answer = input("The program finished! Click on 'e' to exit.. ")
-            if answer.lower().startswith("e"):
-                browser.quit()
-                exit()
-
+            if followed >= int(num_follow):
+                break
+            else:
+                browser.execute_script(
+                    'arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].offsetHeight;',
+                    pop_up_window)
+                time.sleep(1)
         except Exception as e:
             print(e)
+
+
+    answer = input("The program finished! Click on 'e' to exit.. ")
+    if answer.lower().startswith("e"):
+        browser.quit()
+        exit()
+
 
 if __name__ == "__main__":
     main()
