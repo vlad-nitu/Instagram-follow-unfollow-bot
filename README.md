@@ -1,12 +1,8 @@
 # IG-Bot
- Easy Instagram Automation Bot.<br/>
- Completely for Beginners that requires no coding skills !!<br/><br/>
+Instagram automation bot written in Python using Selenium API.<br/>
 # Features
- •	Like, Comment, Follow Instagram Posts using Hashtags<br/>
- •	Follow Someone else's Followers<br/>
- •	Unfollow Users<br/>
+ -  Follow a number of users from the followers list of a specified user<br/><br/>
+ -	Unfollow a number of users from your followings list<br/>
 # How to Use This Bot
  •	Install Requirements<br/><br/>
-   pip install -r requirements.txt<br/><br/>
- •	Watch This Full Tutorial on How to use this Bot Step by Step<br/>
-   > https://youtu.be/JGKzTTN-zCI
+   `pip install -r requirements.txt`<br/><br/>
