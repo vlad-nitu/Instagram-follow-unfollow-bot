@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.common import ElementClickInterceptedException
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import random
@@ -41,7 +42,7 @@ def main():
 
     num_follow = input("How many person you want to follow: ")
 
-    browser.find_element(By.PARTIAL_LINK_TEXT, "follower").click()
+    browser.find_element(By.PARTIAL_LINK_TEXT, "followers").click()
     sleep_for_period_of_time(2, 4)
 
     pop_up_window = browser.find_element(By.XPATH, "//div[@class='_aano']")
@@ -51,13 +52,32 @@ def main():
     while True:
         try:
             list_of_followers = browser.find_elements(By.XPATH, '//button/div/div[contains(text(), "Follow")]')
+
+            print(len(list_of_followers))
+
             for person in list_of_followers:
                 if person.text == "Follow":
-                    person.click()
-                    print("Followed!")
-                    followed += 1
-                    print(followed)
-                    sleep_for_period_of_time(40, 60)
+
+                    print(person)
+
+                    retries = 0
+                    max_retries = 10
+                    while retries < max_retries:
+                        try:
+                            person.click()
+                            break
+                        except ElementClickInterceptedException as e:
+                            print("Click intercepted, retrying...")
+                            time.sleep(2)  # Wait for a second before retrying
+                            retries += 1
+
+                    if (retries < max_retries):
+                        print("Followed!")
+                        followed += 1
+                        print(followed)
+                        sleep_for_period_of_time(40, 60)
+                    else:
+                        print("Was not able to click")
                 else:
                     pass
 
